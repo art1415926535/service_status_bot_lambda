@@ -1,0 +1,21 @@
+# Created by .ignore support plugin (hsz.mobi)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+.env
+.venv
+env/
+venv/
+ENV/
+.idea/
+.idea_modules/
+
+# Settings
+settings.py
+urls.txt
+old_message_id.txt

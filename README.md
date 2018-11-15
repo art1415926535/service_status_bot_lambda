@@ -22,10 +22,7 @@ Bot:
 * `message_id`: `7`
 * `chat_id`: `-1000000000000`
 
-
 ## To create a deployment package
-1. Copy the sample code into a file named CreateThumbnail.py.
-
 1. Create a virtual environment.
     ```bash
     virtualenv ~/shrink_venv

@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Iterable, Tuple
-from urllib import request
+
+import requests
 
 
 def multi_fetch(urls: Iterable[str]) -> List[Tuple]:
@@ -8,11 +9,11 @@ def multi_fetch(urls: Iterable[str]) -> List[Tuple]:
         return executor.map(fetch, urls)
 
 
-async def fetch(url):
+def fetch(url):
     try:
-        result = request.urlopen(url)
-        return result.getcode(), None
-    except request.URLError as e:
+        response = requests.get(url)
+        return response.status_code, None
+    except requests.RequestException as e:
         return '---', str(e)
     except Exception as e:
         return '???', str(e) or str(type(e))

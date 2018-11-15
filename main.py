@@ -20,7 +20,6 @@ emoji_status = {
     500: '❗',
     502: '💀',
     504: '🕚',
-    998: '⚫️‍',
 }
 
 
@@ -62,6 +61,4 @@ def handler(event, context):
         parse_mode='Markdown'
     )
 
-    return {
-        'result': 'ok',
-    }
+    return {'result': 'ok'}

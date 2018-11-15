@@ -15,7 +15,5 @@ ENV/
 .idea/
 .idea_modules/
 
-# Settings
-settings.py
-urls.txt
-old_message_id.txt
+# Deployment packages
+*.zip

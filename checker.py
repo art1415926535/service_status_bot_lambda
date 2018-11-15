@@ -1,27 +1,18 @@
-from typing import List, Iterable, Tuple, Optional
-
-import aiohttp
-import async_timeout
-import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from typing import List, Iterable, Tuple
+from urllib import request
 
 
 def multi_fetch(urls: Iterable[str]) -> List[Tuple]:
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    requests = [asyncio.ensure_future(fetch(url))
-                for url in urls]
-    responses = loop.run_until_complete(asyncio.gather(*requests))
-    loop.close()
-    return list(zip(*responses))
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        return executor.map(fetch, urls)
 
 
 async def fetch(url):
     try:
-        async with aiohttp.ClientSession() as session:
-            async with async_timeout.timeout(10):
-                async with session.get(url) as response:
-                    return response.status, None
-    except aiohttp.ClientConnectorError as e:
+        result = request.urlopen(url)
+        return result.getcode(), None
+    except request.URLError as e:
         return '---', str(e)
     except Exception as e:
         return '???', str(e) or str(type(e))

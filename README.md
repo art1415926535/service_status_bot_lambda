@@ -1,30 +1,52 @@
-Для запуска необходимо:
-  * Установить python >= 3.6
-  * Выполнить `pip3 install -r requirements.txt`
-  * Создать файл `settings.py`
-  * Создать файл `urls.txt`
-  * Запустить скрипт `python3.6 main.py`
+# Telegram web site checker for AWS
 
-Для запуска через Docker необходимо:
-  * Создать файл `settings.py`
-  * Создать файл `urls.txt`
-  * Запустить контейнер
+Bot:
+```
+✅✅
+20:00:00 11.11.18
 
-#### settings.py
-```python
-TOKEN = '95123483458:AAAz65W9-bghuiacsYUnbghuiMNjkMhuio'  # Токен бота.
-CHAT_ID = -1000000000000  # ID чата для вывода статистики.
-DEBUG = False  # Включение и выключения дебаг режима.
+200    https://google.com
+200    https://www.mozilla.org
 ```
 
-#### urls.txt
-```
-http://some_url.com
-https://some_url.com
-```
+## Environment variables
+* `urls`: URLs that the bot will check.
+* `token`: Bot token.
+* `message_id`: Updateable message.
+* `chat_id`: Chat id with message.
 
-#### Запуск контейнера
-```bash
-  docker build -t service_status_bot . \
-  && docker run -v $(pwd):/bot service_status_bot
-```
+#### Example
+
+* `urls`: `https://google.com,https://www.mozilla.org`
+* `token`: `95123483458:AAAz65W9-bghuiacsYUnbghuiMNjkMhuio`
+* `message_id`: `7`
+* `chat_id`: `-1000000000000`
+
+
+## To create a deployment package
+1. Copy the sample code into a file named CreateThumbnail.py.
+
+1. Create a virtual environment.
+    ```bash
+    virtualenv ~/shrink_venv
+    source ~/shrink_venv/bin/activate
+    ```
+
+1. Install libraries in the virtual environment
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+1. Add the contents of lib and lib64 site-packages to your .zip file.
+    ```bash
+    cd $VIRTUAL_ENV/lib/python3.6/site-packages
+    zip -r9 ~/service_status_bot_lambda.zip .
+    ```
+    
+1. Add your python code to the .zip file
+    ```bash
+    cd ~
+    
+    zip -g service_status_bot_lambda.zip main.py
+    zip -g service_status_bot_lambda.zip checker.py
+    ```

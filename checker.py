@@ -4,12 +4,12 @@ from typing import List, Iterable, Tuple
 import requests
 
 
-def multi_fetch(urls: Iterable[str]) -> List[Tuple]:
+def get_status_codes(urls: Iterable[str]) -> List[Tuple]:
     with ThreadPoolExecutor(max_workers=10) as executor:
-        return executor.map(fetch, urls)
+        return executor.map(fetch_code, urls)
 
 
-def fetch(url):
+def fetch_code(url):
     try:
         response = requests.get(url)
         return response.status_code, None

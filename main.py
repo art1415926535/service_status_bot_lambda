@@ -3,7 +3,7 @@ import os
 
 import telebot
 
-from checker import multi_fetch
+from checker import get_status_codes
 
 
 urls = [u.strip() for u in os.environ.get('urls').split(',')]
@@ -14,7 +14,7 @@ bot = telebot.TeleBot(token, threaded=False)
 message_id = os.environ.get('message_id')
 chat_id = os.environ.get('chat_id')
 
-emoji_status = {
+status_code_to_emoji = {
     200: '✅',
     404: '🙈',
     500: '❗',
@@ -33,16 +33,16 @@ def handler(event, context):
             'urls': urls,
         }
 
-    statuses, errors = list(zip(*multi_fetch(urls)))
-    lines = []
+    codes, errors = list(zip(*get_status_codes(urls)))
+    message_lines = []
     first_line = ''
-    for url, status in zip(urls, statuses):
-        s = '`' if status != 200 else '*'
-        e_status = emoji_status.get(status, "❓")
-        first_line += e_status
-        lines.append(f'{s}{status}{s}    {url}')
+    for url, status in zip(urls, codes):
+        tag = '*' if status == 200 else '`'
+        emoji = status_code_to_emoji.get(status, "❓")
+        first_line += emoji
+        message_lines.append(f'{tag}{status}{tag}    {url}')
 
-    statistics = "\n".join(lines)
+    statistics = "\n".join(message_lines)
     errors = filter(lambda x: x[1] is not None, zip(urls, errors))
     errors_text = "\n\n".join(
         f'{url}\n`{error}`' for url, error in errors

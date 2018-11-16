@@ -1,7 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Iterable, Tuple, Union
+import os
 
 import requests
+
+
+timeout = int(os.environ.get('timeout', 3))
 
 
 def get_status_codes(urls: Iterable[str]) -> List[Tuple]:
@@ -11,7 +15,7 @@ def get_status_codes(urls: Iterable[str]) -> List[Tuple]:
 
 def fetch_code(url: str) -> Tuple[Union[str, int], Union[str, None]]:
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=timeout)
         return response.status_code, None
     except requests.Timeout:
         return 504, None

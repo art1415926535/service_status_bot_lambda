@@ -14,6 +14,7 @@ Bot:
 * `token` _required_: Bot token.
 * `message_id` _required_: Updateable message.
 * `chat_id` _required_: Chat id with message.
+* `timeout`: Request time out.
 * `tz`: Time zone.
 
 #### Example
@@ -21,7 +22,8 @@ Bot:
 * `urls`: `https://google.com,https://www.mozilla.org`
 * `token`: `95123483458:AAAz65W9-bghuiacsYUnbghuiMNjkMhuio`
 * `message_id`: `7`
-* `chat_id`: `-1000000000000`
+* `timeout`: `-1000000000000`
+* `timeout`: `10`.
 * `tz`: `Europe/Moscow`
 
 ## To create a deployment package

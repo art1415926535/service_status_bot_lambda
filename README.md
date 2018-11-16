@@ -1,4 +1,4 @@
-# Site status bot for AWS Lambda
+# Service status bot for AWS Lambda
 
 Bot:
 ```
@@ -6,7 +6,7 @@ Bot:
 20:00:00 11.11.18
 
 200    https://google.com
-200    https://www.mozilla.org
+200    https://api.github.com
 ```
 
 ## Config

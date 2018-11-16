@@ -9,7 +9,12 @@ Bot:
 200    https://www.mozilla.org
 ```
 
-## Environment variables
+## Config
+Runtime: Python 3.6
+
+Handler: `main.handler`
+
+### Environment variables
 * `urls` _required_: URLs that the bot will check.
 * `token` _required_: Bot token.
 * `message_id` _required_: Updateable message.

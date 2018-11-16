@@ -10,10 +10,11 @@ Bot:
 ```
 
 ## Environment variables
-* `urls`: URLs that the bot will check.
-* `token`: Bot token.
-* `message_id`: Updateable message.
-* `chat_id`: Chat id with message.
+* `urls` _required_: URLs that the bot will check.
+* `token` _required_: Bot token.
+* `message_id` _required_: Updateable message.
+* `chat_id` _required_: Chat id with message.
+* `tz`: Time zone.
 
 #### Example
 
@@ -21,6 +22,7 @@ Bot:
 * `token`: `95123483458:AAAz65W9-bghuiacsYUnbghuiMNjkMhuio`
 * `message_id`: `7`
 * `chat_id`: `-1000000000000`
+* `tz`: `Europe/Moscow`
 
 ## To create a deployment package
 1. Create a virtual environment.

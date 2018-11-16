@@ -2,6 +2,7 @@ from datetime import datetime
 import os
 
 import telebot
+import dateutil.tz
 
 from checker import get_status_codes
 
@@ -13,6 +14,9 @@ bot = telebot.TeleBot(token, threaded=False)
 
 message_id = os.environ.get('message_id')
 chat_id = os.environ.get('chat_id')
+
+tz = dateutil.tz.gettz(os.environ.get('tz'))
+
 
 status_code_to_emoji = {
     200: '✅',
@@ -49,7 +53,7 @@ def handler(event, context):
     )
     text = (
         f'{first_line}\n'
-        f'{datetime.now().strftime("`%H:%M:%S` %d.%m.%y")}\n\n'
+        f'{datetime.now(tz=tz).strftime("`%H:%M:%S` %d.%m.%y")}\n\n'
         f'{statistics}\n\n'
         f'{errors_text}'
     )

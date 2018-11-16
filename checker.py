@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
-from typing import List, Iterable, Tuple
+from typing import List, Iterable, Tuple, Union
 
 import requests
 
@@ -9,11 +9,13 @@ def get_status_codes(urls: Iterable[str]) -> List[Tuple]:
         return executor.map(fetch_code, urls)
 
 
-def fetch_code(url):
+def fetch_code(url: str) -> Tuple[Union[str, int], Union[str, None]]:
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         return response.status_code, None
+    except requests.Timeout:
+        return 504, None
     except requests.RequestException as e:
-        return '---', str(e)
+        return '->x', str(e)
     except Exception as e:
-        return '???', str(e) or str(type(e))
+        return '???', str(type(e))

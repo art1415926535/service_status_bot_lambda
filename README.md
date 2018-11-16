@@ -1,4 +1,4 @@
-# Telegram web site checker for AWS
+# Site status bot for AWS Lambda
 
 Bot:
 ```

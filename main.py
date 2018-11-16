@@ -54,8 +54,8 @@ def handler(event, context):
         f'{errors_text}'
     )
     bot.edit_message_text(
-        message_id=os.environ.get('message_id'),
-        chat_id=os.environ.get('chat_id'),
+        message_id=message_id,
+        chat_id=chat_id,
         text=text,
         disable_web_page_preview=True,
         parse_mode='Markdown'

@@ -24,6 +24,7 @@ status_code_to_emoji = {
     500: '❗',
     502: '💀',
     504: '🕚',
+    None: '❓'
 }
 
 
@@ -40,11 +41,22 @@ def handler(event, context):
     codes, errors = list(zip(*get_status_codes(urls)))
     message_lines = []
     first_line = ''
+
     for url, status in zip(urls, codes):
         tag = '*' if status == 200 else '`'
-        emoji = status_code_to_emoji.get(status, "❓")
+        emoji = status_code_to_emoji.get(status, status_code_to_emoji[None])
         first_line += emoji
         message_lines.append(f'{tag}{status}{tag}    {url}')
+
+    # fix for very large lines
+    if len(first_line) > 10:
+        new_first_line_data = []
+        for emoji in status_code_to_emoji.values():
+            if emoji in first_line:
+                new_first_line_data.append(f'{emoji}×'
+                                           f'{first_line.count(emoji)}')
+
+        first_line = f'`{"  ".join(new_first_line_data)}    `'
 
     statistics = "\n".join(message_lines)
     errors = filter(lambda x: x[1] is not None, zip(urls, errors))

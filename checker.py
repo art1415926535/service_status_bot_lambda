@@ -20,6 +20,6 @@ def fetch_code(url: str) -> Tuple[Union[str, int], Union[str, None]]:
     except requests.Timeout:
         return 504, None
     except requests.RequestException as e:
-        return '->x', str(e)
+        return '->x', type(e).__name__
     except Exception as e:
-        return '???', str(type(e))
+        return '???', type(e).__name__
